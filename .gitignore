@@ -1,0 +1,6 @@
+# Maven
+target/
+
+# NetBeans
+nbactions.xml
+**/nbproject/private/

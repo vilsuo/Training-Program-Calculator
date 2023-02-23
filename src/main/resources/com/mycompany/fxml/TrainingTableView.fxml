@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10"
+      xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.controllers.TrainingTableViewController">
+    <children>
+        <Label fx:id="tableTitle" text="" alignment="CENTER"></Label>
+        <TableView fx:id="trainingTable" prefHeight="122">
+            <columns>
+                <TableColumn text="working sets" prefWidth="100" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="workingSets"/>
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="repetitions" prefWidth="100" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="repetitions"/>
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="working weight" prefWidth="120" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="workingWeight"/>
+                    </cellValueFactory>
+                </TableColumn>
+             </columns>
+        </TableView>
+    </children>
+</VBox>
