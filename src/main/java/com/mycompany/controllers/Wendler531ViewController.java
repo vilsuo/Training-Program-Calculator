@@ -5,10 +5,16 @@
  */
 package com.mycompany.controllers;
 
+import com.mycompany.domain.Wendler531TrainingProgram;
 import com.mycompany.logic.Utilities;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+/*
+TODO
+- clean copy pasta
+*/
 
 public class Wendler531ViewController {
     
@@ -72,11 +78,9 @@ public class Wendler531ViewController {
         this.squatTrainingOneRepMaxTextField.setText(String.valueOf(squatTrainingOneRepMax));
         this.deadliftTrainingOneRepMaxTextField.setText(String.valueOf(deadliftTrainingOneRepMax));
         
-        // update table
-        //this.trainingCycleViewController.updateTrainingTable(this.oneRepMax, this.increment);
-        //SmolovJrTrainingProgram program = new SmolovJrTrainingProgram(this.oneRepMax, this.increment);
-        //System.out.println(program);
-        
+        Wendler531TrainingProgram program
+                = new Wendler531TrainingProgram(ohpTrainingOneRepMax, benchTrainingOneRepMax, deadliftTrainingOneRepMax, squatOneRepMax);
+        System.out.println(program);
     }
     
     private String cleanInput(String input) {

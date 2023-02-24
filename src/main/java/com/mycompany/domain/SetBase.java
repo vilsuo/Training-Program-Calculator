@@ -37,21 +37,4 @@ public class SetBase {
     public String toString() {
         return this.workingSets.get() + "*" + this.repetitions.get() + " @" + this.workingWeight.get();
     }
-    /*
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof ExerciseBase)) {
-            return false;
-        }
-        ExerciseBase otherExerciseBase = (ExerciseBase) other;
-        
-        
-        return (this.getWorkingSets() == otherExerciseBase.getWorkingSets())
-            && (this.getRepetitions() == otherExerciseBase.getRepetitions())
-            && (this.getWorkingWeight() == otherExerciseBase.getWorkingWeight());
-    }
-    */
 }

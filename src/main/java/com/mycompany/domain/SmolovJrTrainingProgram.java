@@ -14,7 +14,7 @@ public class SmolovJrTrainingProgram {
         this.workouts = new ArrayList<>();
         for (int week = 1; week <= 3; ++week) {
             for (int day = 1; day <= 4; ++day) {
-                addWorkoutDay(week, day, oneRepMax, increment);
+                addWorkout(week, day, oneRepMax, increment);
             }
         }
     }
@@ -23,7 +23,7 @@ public class SmolovJrTrainingProgram {
     // week 1:  70%,    75%,    80%,    85% of one rep max
     // week 2: week 1 + increment
     // week 3: week 1 + 2 * increment
-    private void addWorkoutDay(int week, int day, double oneRepMax, double increment) {
+    private void addWorkout(int week, int day, double oneRepMax, double increment) {
         double percentage = 0.70 + 0.05 * (day - 1);
         double extra = (week - 1) * increment;
         double workingWeight = Utilities.getRounded(percentage * oneRepMax + extra, increment);
