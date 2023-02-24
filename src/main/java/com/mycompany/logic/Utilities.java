@@ -17,4 +17,8 @@ public final class Utilities {
         }
         return rounded;
     }
+    
+    public static boolean validateOneRepMaxInput(String input) {
+        return input.matches("[0-9]{1,3}([,.][0-9]{0,3})?");
+    }
 }
