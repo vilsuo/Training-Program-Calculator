@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+
+<MenuBar fx:id="mainMenuBar"
+    xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/8.0.171"
+    fx:controller="com.mycompany.controllers.MenuViewController">
+    
+    <menus>
+        <Menu text="Settings">
+            <items>
+                <Menu text="Select weight accuracy">
+                    <fx:define>
+                        <ToggleGroup fx:id="weightAccuracyToggleGroup"/>
+                    </fx:define>
+                    <RadioMenuItem text="1.0" toggleGroup="$weightAccuracyToggleGroup"/>
+                    <RadioMenuItem text="1.25" toggleGroup="$weightAccuracyToggleGroup"/>
+                    <RadioMenuItem text="1.5" toggleGroup="$weightAccuracyToggleGroup"/>
+                    <RadioMenuItem text="2.0" toggleGroup="$weightAccuracyToggleGroup"/>
+                    <RadioMenuItem text="2.5" toggleGroup="$weightAccuracyToggleGroup"/>
+                </Menu>
+            </items>
+        </Menu>
+        <Menu>
+            <items>
+                <Menu text="Training program">
+                    <fx:define>
+                         <ToggleGroup fx:id="trainingProgramToggleGroup"/>
+                    </fx:define>
+                    <RadioMenuItem text="Smolov Jr" toggleGroup="$trainingProgramToggleGroup"/>
+                    <RadioMenuItem text="Wendler 5/3/1" toggleGroup="$trainingProgramToggleGroup"/>
+                </Menu>
+            </items>
+        </Menu>
+    </menus>
+    
+</MenuBar>

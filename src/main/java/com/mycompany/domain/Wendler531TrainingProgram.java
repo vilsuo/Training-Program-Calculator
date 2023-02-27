@@ -29,7 +29,7 @@ public class Wendler531TrainingProgram {
         this.workouts = new ArrayList<>();
         for (int week = 1; week <= 4; ++week) {
             for (int day = 1; day <= 4; ++day) {
-                addWorkout(week, tORMS[day - 1], exercises[day - 1]);
+                addPrimaryWorkoutBase(week, tORMS[day - 1], exercises[day - 1]);
             }
         }
     }
@@ -49,11 +49,11 @@ public class Wendler531TrainingProgram {
      *                          percentage of this one
      * @param exerciseName      the name of the exercise to be added
      */
-    private void addWorkout(int week, double trainingOneRepMax, String exerciseName) {
+    private void addPrimaryWorkoutBase(int week, double trainingOneRepMax, String exerciseName) {
         ExerciseBase exercise = new ExerciseBase(exerciseName);
         for (int setNumber = 1; setNumber <= 3; ++setNumber) {
             int percentage = getPercentage(week, setNumber);
-            int repetitions = getRepetitions(week, setNumber);
+            int repetitions = getNumberOfRepetitions(week, setNumber);
             
             SetBase set = new SetBase(1, repetitions, percentage/100.0 * trainingOneRepMax);
             exercise.addSet(set);
@@ -62,6 +62,10 @@ public class Wendler531TrainingProgram {
         WorkoutBase workout = new WorkoutBase();
         workout.addExercise(exercise);
         this.workouts.add(workout);
+    }
+    
+    private void addSecondaryExerciseToWorkout() {
+        
     }
     
     /**
@@ -85,7 +89,7 @@ public class Wendler531TrainingProgram {
      * 
      * @return          number of repetitions of the given set in the given week
      */
-    private int getRepetitions(int week, int setNumber) {
+    private int getNumberOfRepetitions(int week, int setNumber) {
         switch (week) {
             case 1:
                 return 5;
