@@ -21,6 +21,8 @@ public class Wendler531ViewController {
     @FXML private TextField squatORMTextField;
     @FXML private TextField deadliftORMTextField;
     
+    @FXML private Label tORMLabel;
+    
     @FXML private Label ohpTORMTextField;
     @FXML private Label benchTORMField;
     @FXML private Label squatTORMTextField;
@@ -30,6 +32,9 @@ public class Wendler531ViewController {
     
     @FXML
     private void onCalculateButtonPressed() throws Exception {
+        // clear previous training max text
+        clearTORMLabels();
+        
         // check all one rep max inputs
         String ohpInput = this.ohpORMTextField.getText();
         String benchInput = this.benchORMTextField.getText();
@@ -79,7 +84,16 @@ public class Wendler531ViewController {
         return true;
     }
     
+    private void clearTORMLabels() {
+        this.tORMLabel.setText("");
+        this.ohpTORMTextField.setText("");
+        this.benchTORMField.setText("");
+        this.squatTORMTextField.setText("");
+        this.deadliftTORMTextField.setText("");
+    }
+    
     private void updateTORMLabels(double ohpTROM, double benchTORM, double squatTORM, double deadliftTORM) {
+        this.tORMLabel.setText("Training ORM");
         this.ohpTORMTextField.setText(String.format("%.3f", ohpTROM));
         this.benchTORMField.setText(String.format("%.3f", benchTORM));
         this.squatTORMTextField.setText(String.format("%.3f", squatTORM));

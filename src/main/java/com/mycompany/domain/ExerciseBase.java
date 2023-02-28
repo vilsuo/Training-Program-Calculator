@@ -27,7 +27,7 @@ public class ExerciseBase {
     public String getExerciseName() {
         return exerciseName.get();
     }
-
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.exerciseName.get());

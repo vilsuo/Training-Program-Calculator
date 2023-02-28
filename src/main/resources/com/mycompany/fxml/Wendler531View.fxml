@@ -34,23 +34,23 @@
                 GridPane.columnIndex="0" GridPane.rowIndex="4"/>
             
             
-            <Label text="One rep maxes (ORM)"
+            <Label text="One rep max (ORM)"
                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             
-            <TextField fx:id="ohpORMTextField"
+            <TextField fx:id="ohpORMTextField" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             
-            <TextField fx:id="benchORMTextField"
+            <TextField fx:id="benchORMTextField" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             
-            <TextField fx:id="squatORMTextField"
+            <TextField fx:id="squatORMTextField" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             
-            <TextField fx:id="deadliftORMTextField"
+            <TextField fx:id="deadliftORMTextField" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             
             
-            <Label text="Training ORM"
+            <Label fx:id="tORMLabel"
                 GridPane.columnIndex="2" GridPane.rowIndex="0"/>
             
             <Label fx:id="ohpTORMTextField"

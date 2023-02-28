@@ -9,10 +9,11 @@ import java.util.Properties;
 
 public class SmolovJrTrainingProgram {
     
-    private final String exerciseName = "Squat";
+    private String exerciseName;
     private List<WorkoutBase> workouts;
     
-    public SmolovJrTrainingProgram(double oneRepMax, double increment) {
+    public SmolovJrTrainingProgram(String exerciseName, double oneRepMax, double increment) {
+        this.exerciseName = exerciseName;
         this.workouts = new ArrayList<>();
         
         try {

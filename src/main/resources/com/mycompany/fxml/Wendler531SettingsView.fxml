@@ -18,12 +18,12 @@
     </padding>
     <children>
         <VBox alignment="TOP_CENTER" spacing="10.0">
-            <Label text="Training max (%)"/>
+            <Label text="Take from ORM to use as Training ORM (%)" maxWidth="120" wrapText="true" textAlignment="CENTER"/>
             <ComboBox fx:id="trainingMaxPercentComboBox"/>
         </VBox>
         
         <VBox alignment="TOP_CENTER" spacing="10.0">
-            <Label text="Add to Training max"/>
+            <Label text="Add to Training ORM"/>
             <GridPane hgap="10" vgap="10" alignment="CENTER">
                 <Label text="Ohp/Bench"
                     GridPane.columnIndex="0" GridPane.rowIndex="0"/>

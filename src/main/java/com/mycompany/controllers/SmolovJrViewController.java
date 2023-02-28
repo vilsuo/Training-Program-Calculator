@@ -21,6 +21,8 @@ public class SmolovJrViewController implements Initializable {
     
     @FXML private ComboBox incrementComboBox;
     
+    @FXML private ComboBox exerciseNameComboBox;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         final ObservableList<String> incrementOptions = 
@@ -39,6 +41,15 @@ public class SmolovJrViewController implements Initializable {
         
         this.incrementComboBox.getItems().addAll(incrementOptions);
         this.incrementComboBox.getSelectionModel().select(3); // 2.5
+        
+        final ObservableList<String> exerciseNameOptions = 
+            FXCollections.observableArrayList(
+                "Squat",
+                "Bench"
+            );
+        
+        this.exerciseNameComboBox.getItems().addAll(exerciseNameOptions);
+        this.exerciseNameComboBox.getSelectionModel().selectFirst(); // Squat
     }
     
     @FXML
@@ -52,10 +63,11 @@ public class SmolovJrViewController implements Initializable {
             // clear the potential error message
             this.errorLabel.setText("");
             
+            String exerciseName = this.exerciseNameComboBox.getValue().toString();
             double oneRepMax = Utilities.getInputDoubleValue(input);
             double increment = Double.valueOf(this.incrementComboBox.getValue().toString());
             
-            SmolovJrTrainingProgram program = new SmolovJrTrainingProgram(oneRepMax, increment);
+            SmolovJrTrainingProgram program = new SmolovJrTrainingProgram(exerciseName, oneRepMax, increment);
             System.out.println(program);
     }
     
