@@ -27,15 +27,12 @@ public class SmolovJrViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         final ObservableList<String> incrementOptions = 
             FXCollections.observableArrayList(
-                "0.0",
                 "1.0",
-                "1.25",
+                "1.5",
+                "2.0",
                 "2.5",
-                "3.75",
                 "5.0",
-                "6.25",
                 "7.5",
-                "8.75",
                 "10.0"
             );
         

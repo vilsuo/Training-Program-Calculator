@@ -19,11 +19,12 @@
                     <fx:define>
                         <ToggleGroup fx:id="weightAccuracyToggleGroup"/>
                     </fx:define>
+                    <RadioMenuItem text="0.5" toggleGroup="$weightAccuracyToggleGroup"/>
                     <RadioMenuItem text="1.0" toggleGroup="$weightAccuracyToggleGroup"/>
-                    <RadioMenuItem text="1.25" toggleGroup="$weightAccuracyToggleGroup"/>
                     <RadioMenuItem text="1.5" toggleGroup="$weightAccuracyToggleGroup"/>
                     <RadioMenuItem text="2.0" toggleGroup="$weightAccuracyToggleGroup"/>
                     <RadioMenuItem text="2.5" toggleGroup="$weightAccuracyToggleGroup"/>
+                    <RadioMenuItem text="5.0" toggleGroup="$weightAccuracyToggleGroup"/>
                 </Menu>
             </items>
         </Menu>

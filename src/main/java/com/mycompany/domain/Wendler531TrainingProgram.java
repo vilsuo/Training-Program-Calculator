@@ -3,8 +3,6 @@ package com.mycompany.domain;
 
 import com.mycompany.logic.PropertyManager;
 import com.mycompany.logic.Utilities;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 /*
@@ -13,34 +11,42 @@ TODO
 
 */
 
-public class Wendler531TrainingProgram {
-    
-    private final String[] exercises = {"ohp", "deadlift", "bench", "squat"};
-    private List<WorkoutBase> workouts;
+public class Wendler531TrainingProgram extends TrainingProgram {
     
     /**
      * training one rep max (TORM) is some percent of the actual one rep max.
      * 
-     * @param ohpTORM
-     * @param deadliftTORM
-     * @param benchTORM
-     * @param squatTORM
+     * @param ohpTORM       overhead press training one repetition maximum
+     * @param deadliftTORM  deadlift training one repetition maximum
+     * @param benchTORM     bench press training one repetition maximum
+     * @param squatTORM     squat training one repetition maximum
      */
     public Wendler531TrainingProgram(double ohpTORM, double deadliftTORM, double benchTORM, double squatTORM) {
-        this.workouts = new ArrayList<>();
+        super("Wendler 5/3/1");
         
-        double[] tORMS = {ohpTORM, deadliftTORM, benchTORM, squatTORM};
+        final String[] days = {"Monday", "Wednesday", "Friday", "Saturday"};
+        final String[] exercises = {"overhead press", "deadlift", "bench press", "squat"};
+        double[] tORMs = {ohpTORM, deadliftTORM, benchTORM, squatTORM};
         
         try {
             Properties props = new PropertyManager().loadProperties();
             double accuracy = Double.valueOf(props.getProperty("weightAccuracy"));
             
             for (int week = 1; week <= 4; ++week) {
-                for (int day = 1; day <= 4; ++day) {
-                    double trainingOneRepMax = tORMS[day - 1];
-                    String exerciseName = this.exercises[day - 1];
-                    createPrimaryWorkoutBase(week, trainingOneRepMax, accuracy, exerciseName);
+                WorkoutWeek workoutWeek = new WorkoutWeek();
+                
+                for (int dayNumber = 1; dayNumber <= 4; ++dayNumber) {
+                    String exerciseName = exercises[dayNumber - 1];
+                    double trainingOneRepMax = tORMs[dayNumber - 1];
+                    
+                    WorkoutBase workoutBase = createPrimaryWorkoutBase(
+                            week, exerciseName, trainingOneRepMax, accuracy);
+                    
+                    String day = days[dayNumber - 1];
+                    workoutWeek.addWorkout(day, workoutBase);
                 }
+                
+                super.addWorkoutWeek(workoutWeek);
             }
             
         } catch (Exception ex) {
@@ -59,11 +65,15 @@ public class Wendler531TrainingProgram {
      * 
      * @param week              picks the percentage and the number of
      *                          repetitions from the above table
+     * 
+     * @param exerciseName      the name of the exercise to be added
+     * 
      * @param trainingOneRepMax the base one rep max. The working weight is a
      *                          percentage of this one
-     * @param exerciseName      the name of the exercise to be added
+     * 
+     * @param accuracy          working weights will be rounded to the closest multiple of this value
      */
-    private void createPrimaryWorkoutBase(int week, double trainingOneRepMax, double accuracy, String exerciseName) {
+    private WorkoutBase createPrimaryWorkoutBase(int week, String exerciseName, double trainingOneRepMax, double accuracy) {
         ExerciseBase exercise = new ExerciseBase(exerciseName);
         
         for (int setNumber = 1; setNumber <= 3; ++setNumber) {
@@ -78,15 +88,9 @@ public class Wendler531TrainingProgram {
         WorkoutBase workout = new WorkoutBase();
         workout.addExercise(exercise);
         
-        this.workouts.add(workout);
+        return workout;
     }
     
-    /**
-     * @param week      integer in range [1, 4]
-     * @param setNumber integer in range [1, 3]
-     * 
-     * @return          the percentage to take from training max
-     */
     private int calculatePercentage(int week, int setNumber) {
         if (week < 4) {
             return 50 + 5 * week + 10 * setNumber;
@@ -96,12 +100,6 @@ public class Wendler531TrainingProgram {
         return 30 + 10 * setNumber;
     }
     
-    /**
-     * @param week      integer in range [1, 4]
-     * @param setNumber integer in range [1, 3]
-     * 
-     * @return          number of repetitions of the given set in the given week
-     */
     private int calculateNumberOfWorkingRepetitions(int week, int setNumber) {
         switch (week) {
             case 1:
@@ -120,20 +118,5 @@ public class Wendler531TrainingProgram {
     
     private double calculateWorkingWeight(double percentage, double trainingOneRepMax, double accuracy) {
         return Utilities.getRounded(percentage/100.0 * trainingOneRepMax, accuracy);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Wendler 5/3/1 program:\n");
-        
-        for (int i = 0; i < this.workouts.size(); ++i) {
-            sb.append("Workout #");
-            sb.append(i + 1);
-            sb.append(":\n");
-            sb.append(this.workouts.get(i));
-            sb.append("\n");
-        }
-        
-        return sb.toString();
     }
 }

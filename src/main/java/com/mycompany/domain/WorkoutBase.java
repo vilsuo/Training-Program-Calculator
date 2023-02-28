@@ -19,13 +19,9 @@ public class WorkoutBase {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.exercises.size(); ++i) {
-            if (this.exercises.size() > 1) {
-                sb.append("Exercise #");
-                sb.append(i + 1);
-                sb.append(": ");
-            }
-            sb.append(this.exercises.get(i));
+        
+        for (ExerciseBase exerciseBase : this.exercises) {
+            sb.append(exerciseBase);
         }
         
         return sb.toString();

@@ -19,6 +19,6 @@ public class SetBase {
     
     @Override
     public String toString() {
-        return this.workingSets + "*" + this.repetitions + " @" + this.workingWeight;
+        return "\t" + this.workingSets + "*" + this.repetitions + " @" + this.workingWeight;
     }
 }

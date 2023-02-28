@@ -27,9 +27,9 @@ public class ExerciseBase {
     public String toString() {
         StringBuilder sb = new StringBuilder(this.exerciseName);
         
-        for (int i = 0; i < this.sets.size(); ++i) {
+        for (SetBase setBase : this.sets) {
             sb.append("\n");
-            sb.append(this.sets.get(i));
+            sb.append(setBase);
         }
         
         sb.append("\n");

@@ -10,13 +10,10 @@ import javafx.stage.Stage;
 
 /*
 TODO
-- create base class for training programs (abstract class?)
-
 - organize files: smolov and wendler into own packages
 
 - add info to training programs, with images
 
-- smolov jr: add option to change for bench press
 */
 
 public class Main extends Application {

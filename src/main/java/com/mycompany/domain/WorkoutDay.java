@@ -30,12 +30,12 @@ public class WorkoutDay {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.day);
-        
+        sb.append(":\n");
         for (int i = 0; i < this.workouts.size(); ++i) {
             if (this.workouts.size() > 1) {
                 sb.append("Workout #");
                 sb.append(i + 1);
-                sb.append(": ");
+                sb.append(":\n");
             }
             sb.append(this.workouts.get(i));
         }

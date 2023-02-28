@@ -18,7 +18,7 @@
     </padding>
     <children>
         <VBox alignment="TOP_CENTER" spacing="10.0">
-            <Label text="Take from ORM to use as Training ORM (%)" maxWidth="120" wrapText="true" textAlignment="CENTER"/>
+            <Label text="Training ORM (%)"/>
             <ComboBox fx:id="trainingMaxPercentComboBox"/>
         </VBox>
         
