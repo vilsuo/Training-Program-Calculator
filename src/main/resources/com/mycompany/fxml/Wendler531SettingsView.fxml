@@ -16,7 +16,6 @@
     <padding>
         <Insets bottom="20" left="20" right="20" top="20"/>
     </padding>
-    
     <children>
         <VBox alignment="TOP_CENTER" spacing="10.0">
             <Label text="Training max (%)"/>
@@ -39,7 +38,5 @@
                     GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             </GridPane>
         </VBox>
-        
     </children>
-    
 </HBox>

@@ -26,8 +26,7 @@ public class Wendler531SettingsViewController implements Initializable {
                 "95.0"
             );
         this.trainingMaxPercentComboBox.getItems().addAll(trainingMaxPercentageOptions);
-        // here really the default value should be 90
-        this.trainingMaxPercentComboBox.getSelectionModel().selectFirst();
+        this.trainingMaxPercentComboBox.getSelectionModel().select(2);
         
         final ObservableList<String> addToTrainingMaxOptions = 
             FXCollections.observableArrayList(

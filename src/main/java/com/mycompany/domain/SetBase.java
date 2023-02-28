@@ -16,7 +16,6 @@ public class SetBase {
         this.workingWeight = new SimpleDoubleProperty(workingWeight);
     }
     
-    // remove this constructor?
     public SetBase() {
         this(0, 0, 0.0);
     }

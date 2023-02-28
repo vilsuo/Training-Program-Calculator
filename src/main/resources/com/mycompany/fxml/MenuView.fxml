@@ -27,17 +27,6 @@
                 </Menu>
             </items>
         </Menu>
-        <Menu>
-            <items>
-                <Menu text="Training program">
-                    <fx:define>
-                         <ToggleGroup fx:id="trainingProgramToggleGroup"/>
-                    </fx:define>
-                    <RadioMenuItem text="Smolov Jr" toggleGroup="$trainingProgramToggleGroup"/>
-                    <RadioMenuItem text="Wendler 5/3/1" toggleGroup="$trainingProgramToggleGroup"/>
-                </Menu>
-            </items>
-        </Menu>
     </menus>
     
 </MenuBar>

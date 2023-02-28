@@ -11,88 +11,79 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-/*
-TODO
-- clean copy pasta
-*/
 
 public class Wendler531ViewController {
     
     @FXML private Wendler531SettingsViewController wendler531SettingsViewController;
     
-    @FXML private TextField ohpOneRepMaxTextField;
-    @FXML private TextField benchOneRepMaxTextField;
-    @FXML private TextField squatOneRepMaxTextField;
-    @FXML private TextField deadliftOneRepMaxTextField;
+    @FXML private TextField ohpORMTextField;
+    @FXML private TextField benchORMTextField;
+    @FXML private TextField squatORMTextField;
+    @FXML private TextField deadliftORMTextField;
     
-    @FXML private Label ohpTrainingOneRepMaxTextField;
-    @FXML private Label benchTrainingOneRepMaxTextField;
-    @FXML private Label squatTrainingOneRepMaxTextField;
-    @FXML private Label deadliftTrainingOneRepMaxTextField;
+    @FXML private Label ohpTORMTextField;
+    @FXML private Label benchTORMField;
+    @FXML private Label squatTORMTextField;
+    @FXML private Label deadliftTORMTextField;
     
     @FXML private Label errorLabel;
     
-    // lot of copy pasta here...
     @FXML
     private void onCalculateButtonPressed() throws Exception {
         // check all one rep max inputs
-        String ohpInput = cleanInput(this.ohpOneRepMaxTextField.getText());
-        if (!validateInput(ohpInput, "Your ohp one rep max is in an incorrect form.")) {
+        String ohpInput = this.ohpORMTextField.getText();
+        String benchInput = this.benchORMTextField.getText();
+        String squatInput = this.squatORMTextField.getText();
+        String deadliftInput = this.deadliftORMTextField.getText();
+        
+        // proceed only if all inputs are valid
+        if(!validateInput(ohpInput) || !validateInput(benchInput)
+                || !validateInput(squatInput) ||  !validateInput(deadliftInput)) {
             return;
         }
-        double ohpOneRepMax = Double.valueOf(ohpInput);
-        
-        String benchInput = cleanInput(this.benchOneRepMaxTextField.getText());
-        if (!validateInput(benchInput, "Your bench one rep max is in an incorrect form.")) {
-            return;
-        }
-        double benchOneRepMax = Double.valueOf(benchInput);
-        
-        String squatInput = cleanInput(this.squatOneRepMaxTextField.getText());
-        if (!validateInput(squatInput, "Your squat one rep max is in an incorrect form.")) {
-            return;
-        }
-        double squatOneRepMax = Double.valueOf(squatInput);
-        
-        String deadliftInput = cleanInput(this.deadliftOneRepMaxTextField.getText());
-        if (!validateInput(deadliftInput, "Your deadlift one rep max is in an incorrect form.")) {
-            return;
-        }
-        double deadliftOneRepMax = Double.valueOf(deadliftInput);
-        
         
         // clear the potential error message
         this.errorLabel.setText("");
         
-        double trMaxPercentage = wendler531SettingsViewController.getTrainingMaxPercent();
-        double uBIncrement = wendler531SettingsViewController.getUpperBodyIncrement();
-        double lBIncrement = wendler531SettingsViewController.getLowerBodyIncrement();
+        // calculate training one rep maxes
+        double uBIncrement = this.wendler531SettingsViewController
+                .getUpperBodyIncrement();
+        double lBIncrement = this.wendler531SettingsViewController
+                .getLowerBodyIncrement();
         
-        double ohpTrainingOneRepMax = trMaxPercentage/100 * ohpOneRepMax + uBIncrement;
-        double benchTrainingOneRepMax = trMaxPercentage/100 * benchOneRepMax + uBIncrement;
-        double squatTrainingOneRepMax = trMaxPercentage/100 * squatOneRepMax + lBIncrement;
-        double deadliftTrainingOneRepMax = trMaxPercentage/100 * deadliftOneRepMax + lBIncrement;
+        double ohpTROM = calculateTORM(Utilities.getInputDoubleValue(ohpInput), uBIncrement);
+        double benchTORM = calculateTORM(Utilities.getInputDoubleValue(benchInput), uBIncrement);
+        double squatTORM = calculateTORM(Utilities.getInputDoubleValue(squatInput), lBIncrement);
+        double deadliftTORM = calculateTORM(Utilities.getInputDoubleValue(deadliftInput), lBIncrement);
         
-        this.ohpTrainingOneRepMaxTextField.setText(String.valueOf(ohpTrainingOneRepMax));
-        this.benchTrainingOneRepMaxTextField.setText(String.valueOf(benchTrainingOneRepMax));
-        this.squatTrainingOneRepMaxTextField.setText(String.valueOf(squatTrainingOneRepMax));
-        this.deadliftTrainingOneRepMaxTextField.setText(String.valueOf(deadliftTrainingOneRepMax));
+        // update view to show training one rep maxes
+        updateTORMLabels(ohpTROM, benchTORM, squatTORM, deadliftTORM);
         
-        Wendler531TrainingProgram program
-                = new Wendler531TrainingProgram(ohpTrainingOneRepMax, benchTrainingOneRepMax, deadliftTrainingOneRepMax, squatOneRepMax);
+        // create the training program
+        Wendler531TrainingProgram program 
+                = new Wendler531TrainingProgram(ohpTROM, deadliftTORM, benchTORM, squatTORM);
         System.out.println(program);
     }
     
-    private String cleanInput(String input) {
-        return input.strip().replace(",", ".");
+    private double calculateTORM(double oneRepMax, double increment) {
+        double tORMPercentage = this.wendler531SettingsViewController.getTrainingMaxPercent();
+        return tORMPercentage/100.0 * oneRepMax + increment;
     }
     
-    private boolean validateInput(String input, String errorText) {
+    private boolean validateInput(String input) {
         if (!Utilities.validateOneRepMaxInput(input)) {
-            this.errorLabel.setText(errorText);
+            this.errorLabel.setText("Invalid value(s) entered. Enter the values in a range [0,1000)"
+                + ", with the accuracy of atmost three decimals");
             return false;
         }
         return true;
+    }
+    
+    private void updateTORMLabels(double ohpTROM, double benchTORM, double squatTORM, double deadliftTORM) {
+        this.ohpTORMTextField.setText(String.format("%.3f", ohpTROM));
+        this.benchTORMField.setText(String.format("%.3f", benchTORM));
+        this.squatTORMTextField.setText(String.format("%.3f", squatTORM));
+        this.deadliftTORMTextField.setText(String.format("%.3f", deadliftTORM));
     }
     
 }

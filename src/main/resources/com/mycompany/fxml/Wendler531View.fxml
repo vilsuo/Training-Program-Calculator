@@ -18,7 +18,7 @@
     </padding>
     
     <children>
-        <Label fx:id="errorLabel" textFill="RED"/>
+        <Label fx:id="errorLabel" wrapText="true" maxWidth="400" textFill="RED"/>
         
         <GridPane hgap="10" vgap="10" alignment="CENTER">
             <Label text="Ohp"
@@ -37,32 +37,32 @@
             <Label text="One rep maxes (ORM)"
                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             
-            <TextField fx:id="ohpOneRepMaxTextField"
+            <TextField fx:id="ohpORMTextField"
                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             
-            <TextField fx:id="benchOneRepMaxTextField"
+            <TextField fx:id="benchORMTextField"
                 GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             
-            <TextField fx:id="squatOneRepMaxTextField"
+            <TextField fx:id="squatORMTextField"
                 GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             
-            <TextField fx:id="deadliftOneRepMaxTextField"
+            <TextField fx:id="deadliftORMTextField"
                 GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             
             
             <Label text="Training ORM"
                 GridPane.columnIndex="2" GridPane.rowIndex="0"/>
             
-            <Label fx:id="ohpTrainingOneRepMaxTextField"
+            <Label fx:id="ohpTORMTextField"
                 GridPane.columnIndex="2" GridPane.rowIndex="1"/>
             
-            <Label fx:id="benchTrainingOneRepMaxTextField"
+            <Label fx:id="benchTORMField"
                 GridPane.columnIndex="2" GridPane.rowIndex="2"/>
             
-            <Label fx:id="squatTrainingOneRepMaxTextField"
+            <Label fx:id="squatTORMTextField"
                 GridPane.columnIndex="2" GridPane.rowIndex="3"/>
             
-            <Label fx:id="deadliftTrainingOneRepMaxTextField"
+            <Label fx:id="deadliftTORMTextField"
                 GridPane.columnIndex="2" GridPane.rowIndex="4"/>
         </GridPane>
         

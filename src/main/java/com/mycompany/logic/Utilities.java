@@ -17,6 +17,16 @@ public final class Utilities {
         }
         return rounded;
     }
+    
+    public static boolean validateOneRepMaxInput(String input) {
+        return input.matches("[0-9]{1,3}([,.][0-9]{0,3})?");
+    }
+    
+    public static double getInputDoubleValue(String input) {
+        return Double.valueOf(input.replace(",", "."));
+    }
+    
+    /*
     /**
      * DECREASING DOES NOT WORK CURRENTLY
      * generates a integer cyclic sequence 
@@ -30,7 +40,6 @@ public final class Utilities {
      * @param start
      * @param end
      * @return 
-     */
     public static int getNextIntegerInTheCycle(int integer, int start, int end) {
         if (start == end) {
             return end;
@@ -71,8 +80,5 @@ public final class Utilities {
                     
         }
     }
-    
-    public static boolean validateOneRepMaxInput(String input) {
-        return input.matches("[0-9]{1,3}([,.][0-9]{0,3})?");
-    }
+    */
 }

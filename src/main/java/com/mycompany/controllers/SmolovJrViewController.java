@@ -15,8 +15,6 @@ import javafx.scene.control.TextField;
 
 public class SmolovJrViewController implements Initializable {
     
-    //@FXML private TrainingCycleViewController trainingCycleViewController;
-    
     @FXML private Label errorLabel;
     
     @FXML private TextField oneRepMaxTextField;
@@ -45,26 +43,29 @@ public class SmolovJrViewController implements Initializable {
     
     @FXML
     private void onCalculateButtonPressed() throws Exception {
-        String input = this.oneRepMaxTextField.getText().strip();
+        String input = this.oneRepMaxTextField.getText();
             
-            if (!Utilities.validateOneRepMaxInput(input)) {
-                this.errorLabel.setText("Your one rep max is in an incorrect form.");
+            if (!validateInput(input)){
                 return;
             }
             
             // clear the potential error message
             this.errorLabel.setText("");
             
+            double oneRepMax = Utilities.getInputDoubleValue(input);
             double increment = Double.valueOf(this.incrementComboBox.getValue().toString());
             
-            double value = Double.valueOf(input.replace(",", "."));
-            double oneRepMax = Utilities.getRounded(value, increment);
-            System.out.println("your one rep max used in calculations: " + oneRepMax);
-            
-            // update table
-            //this.trainingCycleViewController.updateTrainingTable(this.oneRepMax, this.increment);
             SmolovJrTrainingProgram program = new SmolovJrTrainingProgram(oneRepMax, increment);
             System.out.println(program);
+    }
+    
+    private boolean validateInput(String input) {
+        if (!Utilities.validateOneRepMaxInput(input)) {
+            errorLabel.setText("Invalid value(s) entered. Enter the values in a range [0,1000)"
+                + ", with the accuracy of atmost three decimals");
+            return false;
+        }
+        return true;
     }
     
 }
