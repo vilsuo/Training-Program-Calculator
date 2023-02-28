@@ -3,34 +3,29 @@ package com.mycompany.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.SimpleStringProperty;
 
 public class ExerciseBase {
     
-    private SimpleStringProperty exerciseName;
+    private String exerciseName;
     private List<SetBase> sets;
 
     public ExerciseBase(String exerciseName) {
-        this.exerciseName = new SimpleStringProperty(exerciseName);
+        this.exerciseName = exerciseName;
         this.sets = new ArrayList<>();
     }
     
-    public ExerciseBase(String exerciseName, SetBase setBase) {
+    public ExerciseBase(String exerciseName, SetBase set) {
         this(exerciseName);
-        addSet(setBase);
+        addSet(set);
     }
     
-    public void addSet(SetBase setBase) {
-        this.sets.add(setBase);
-    }
-
-    public String getExerciseName() {
-        return exerciseName.get();
+    public void addSet(SetBase set) {
+        this.sets.add(set);
     }
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(this.exerciseName.get());
+        StringBuilder sb = new StringBuilder(this.exerciseName);
         
         for (int i = 0; i < this.sets.size(); ++i) {
             sb.append("\n");
