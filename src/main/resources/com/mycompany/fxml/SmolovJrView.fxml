@@ -19,27 +19,25 @@
     </padding>
     <children>
         <Label fx:id="errorLabel" wrapText="true" maxWidth="400" textFill="RED"/>
-
         <GridPane hgap="10" vgap="10" alignment="CENTER">
             <Label text="One rep max"
                 GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-
+            
             <TextField fx:id="oneRepMaxTextField" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             
             <Label text="Exercise"
-                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             
             <ComboBox fx:id="exerciseNameComboBox" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
+            
             <Label text="Weekly increment" maxWidth="60" wrapText="true"
                 GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-
+            
             <ComboBox fx:id="incrementComboBox" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         </GridPane>
-        
         <Button text="Calculate" onAction="#onCalculateButtonPressed"/>
     </children>
 </VBox>

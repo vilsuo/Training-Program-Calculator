@@ -35,7 +35,6 @@ public class SmolovJrViewController implements Initializable {
                 "7.5",
                 "10.0"
             );
-        
         this.incrementComboBox.getItems().addAll(incrementOptions);
         this.incrementComboBox.getSelectionModel().select(3); // 2.5
         
@@ -44,16 +43,16 @@ public class SmolovJrViewController implements Initializable {
                 "Squat",
                 "Bench"
             );
-        
         this.exerciseNameComboBox.getItems().addAll(exerciseNameOptions);
         this.exerciseNameComboBox.getSelectionModel().selectFirst(); // Squat
     }
     
     @FXML
-    private void onCalculateButtonPressed() throws Exception {
+    private void onCalculateButtonPressed() {
         String input = this.oneRepMaxTextField.getText();
             
-            if (!validateInput(input)){
+            if (!isInputValid(input)){
+                // show error
                 return;
             }
             
@@ -62,16 +61,19 @@ public class SmolovJrViewController implements Initializable {
             
             String exerciseName = this.exerciseNameComboBox.getValue().toString();
             double oneRepMax = Utilities.getInputDoubleValue(input);
-            double increment = Double.valueOf(this.incrementComboBox.getValue().toString());
+            double increment = Double.valueOf(
+                    this.incrementComboBox.getValue().toString()
+            );
             
             SmolovJrTrainingProgram program = new SmolovJrTrainingProgram(exerciseName, oneRepMax, increment);
             System.out.println(program);
     }
     
-    private boolean validateInput(String input) {
+    private boolean isInputValid(String input) {
         if (!Utilities.validateOneRepMaxInput(input)) {
-            errorLabel.setText("Invalid value(s) entered. Enter the values in a range [0,1000)"
-                + ", with the accuracy of atmost three decimals");
+            this.errorLabel.setText(
+                    "Invalid value(s) entered. Enter the values in the range"
+                  + " [0,1000), with the accuracy of atmost three decimals");
             return false;
         }
         return true;

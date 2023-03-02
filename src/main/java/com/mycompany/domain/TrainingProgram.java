@@ -2,9 +2,10 @@
 package com.mycompany.domain;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class TrainingProgram {
+public class TrainingProgram implements Iterable {
     
     private String programName;
     private List<WorkoutWeek> workouts;
@@ -20,6 +21,15 @@ public class TrainingProgram {
     
     public void addWorkoutWeek(WorkoutWeek workoutWeek) {
         this.workouts.add(workoutWeek);
+    }
+    
+    public int getNumberOfWeeks() {
+        return this.workouts.size();
+    }
+    
+    @Override
+    public Iterator iterator() {
+        return this.workouts.iterator();
     }
     
     @Override
@@ -39,4 +49,5 @@ public class TrainingProgram {
         
         return sb.toString();
     }
+    
 }

@@ -7,14 +7,15 @@ package com.mycompany.controllers;
 
 import com.mycompany.domain.Wendler531TrainingProgram;
 import com.mycompany.logic.Utilities;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
 public class Wendler531ViewController {
-    
-    @FXML private Wendler531SettingsViewController wendler531SettingsViewController;
     
     @FXML private TextField ohpORMTextField;
     @FXML private TextField benchORMTextField;
@@ -30,8 +31,59 @@ public class Wendler531ViewController {
     
     @FXML private Label errorLabel;
     
+    @FXML private ComboBox trainingMaxPercentComboBox;
+    @FXML private ComboBox upperBodyIncrementComboBox;
+    @FXML private ComboBox lowerBodyIncrementComboBox;
+    
+    public void initialize() {
+        final ObservableList<String> trainingMaxPercentageOptions = 
+            FXCollections.observableArrayList(
+                "85.0",
+                "87.5",
+                "90.0",
+                "92.5",
+                "95.0"
+            );
+        this.trainingMaxPercentComboBox.getItems()
+                .addAll(trainingMaxPercentageOptions);
+        this.trainingMaxPercentComboBox.getSelectionModel().select(2); // 90.0
+        
+        final ObservableList<String> addToUBTrainingMaxOptions = 
+            FXCollections.observableArrayList(
+                "0.0",
+                "2.5",
+                "5.0",
+                "7.5",
+                "10.0",
+                "12.5",
+                "15.0",
+                "17.5",
+                "20.0"
+            );
+        this.upperBodyIncrementComboBox.getItems()
+                .addAll(addToUBTrainingMaxOptions);
+        this.upperBodyIncrementComboBox.getSelectionModel().selectFirst(); // 0.0
+        
+        final ObservableList<String> addToLBTrainingMaxOptions = 
+            FXCollections.observableArrayList(
+                "0.0",
+                "5.0",
+                "10.0",
+                "15.0",
+                "20.0",
+                "25.0",
+                "30.0",
+                "35.0",
+                "40.0"
+            );
+        
+        this.lowerBodyIncrementComboBox.getItems()
+                .addAll(addToLBTrainingMaxOptions);
+        this.lowerBodyIncrementComboBox.getSelectionModel().selectFirst(); // 0.0
+    }
+    
     @FXML
-    private void onCalculateButtonPressed() throws Exception {
+    private void onCalculateButtonPressed() {
         // clear previous training max text
         clearTORMLabels();
         
@@ -41,45 +93,63 @@ public class Wendler531ViewController {
         String squatInput = this.squatORMTextField.getText();
         String deadliftInput = this.deadliftORMTextField.getText();
         
+        String[] inputs = new String[]{
+            ohpInput, benchInput, squatInput, deadliftInput
+        };
+        
         // proceed only if all inputs are valid
-        if(!validateInput(ohpInput) || !validateInput(benchInput)
-                || !validateInput(squatInput) ||  !validateInput(deadliftInput)) {
+        if(!areInputsValid(inputs)) {
+            // show error
             return;
         }
         
-        // clear the potential error message
-        this.errorLabel.setText("");
-        
         // calculate training one rep maxes
-        double uBIncrement = this.wendler531SettingsViewController
-                .getUpperBodyIncrement();
-        double lBIncrement = this.wendler531SettingsViewController
-                .getLowerBodyIncrement();
+        double uBIncrement = Double.valueOf(
+                this.upperBodyIncrementComboBox.getValue().toString()
+        );
+        double lBIncrement = Double.valueOf(
+                this.lowerBodyIncrementComboBox.getValue().toString()
+        );
         
-        double ohpTROM = calculateTORM(Utilities.getInputDoubleValue(ohpInput), uBIncrement);
-        double benchTORM = calculateTORM(Utilities.getInputDoubleValue(benchInput), uBIncrement);
-        double squatTORM = calculateTORM(Utilities.getInputDoubleValue(squatInput), lBIncrement);
-        double deadliftTORM = calculateTORM(Utilities.getInputDoubleValue(deadliftInput), lBIncrement);
+        double ohpTORM = calculateTORM(
+                Utilities.getInputDoubleValue(ohpInput), uBIncrement
+        );
+        double benchTORM = calculateTORM(
+                Utilities.getInputDoubleValue(benchInput), uBIncrement
+        );
+        double squatTORM = calculateTORM(
+                Utilities.getInputDoubleValue(squatInput), lBIncrement
+        );
+        double deadliftTORM = calculateTORM(
+                Utilities.getInputDoubleValue(deadliftInput), lBIncrement
+        );
         
         // update view to show training one rep maxes
-        updateTORMLabels(ohpTROM, benchTORM, squatTORM, deadliftTORM);
+        showTORMLabels(ohpTORM, benchTORM, squatTORM, deadliftTORM);
         
         // create the training program
-        Wendler531TrainingProgram program 
-                = new Wendler531TrainingProgram(ohpTROM, deadliftTORM, benchTORM, squatTORM);
+        Wendler531TrainingProgram program = new Wendler531TrainingProgram(
+                ohpTORM, deadliftTORM, benchTORM, squatTORM
+        );
+        
         System.out.println(program);
     }
     
     private double calculateTORM(double oneRepMax, double increment) {
-        double tORMPercentage = this.wendler531SettingsViewController.getTrainingMaxPercent();
+        double tORMPercentage = Double.valueOf(
+                this.trainingMaxPercentComboBox.getValue().toString()
+        );
         return tORMPercentage/100.0 * oneRepMax + increment;
     }
     
-    private boolean validateInput(String input) {
-        if (!Utilities.validateOneRepMaxInput(input)) {
-            this.errorLabel.setText("Invalid value(s) entered. Enter the values in a range [0,1000)"
-                + ", with the accuracy of atmost three decimals");
-            return false;
+    private boolean areInputsValid(String[] inputs) {
+        for (int i = 0; i < inputs.length; ++i) {
+            if (!Utilities.validateOneRepMaxInput(inputs[i])) {
+                this.errorLabel.setText(
+                        "Invalid value(s) entered. Enter the values in the range"
+                      + " [0,1000), with the accuracy of atmost three decimals");
+                return false;
+            }
         }
         return true;
     }
@@ -92,7 +162,12 @@ public class Wendler531ViewController {
         this.deadliftTORMTextField.setText("");
     }
     
-    private void updateTORMLabels(double ohpTROM, double benchTORM, double squatTORM, double deadliftTORM) {
+    private void showTORMLabels(double ohpTROM, double benchTORM,
+            double squatTORM, double deadliftTORM)
+    {
+        // clear the potential error message
+        this.errorLabel.setText("");
+        
         this.tORMLabel.setText("Training ORM");
         this.ohpTORMTextField.setText(String.format("%.3f", ohpTROM));
         this.benchTORMField.setText(String.format("%.3f", benchTORM));

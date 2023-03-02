@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 /*
 TODO
 - organize files: smolov and wendler into own packages
-
+- confirm rounding when creating training programs
 - add info to training programs, with images
 
 */
