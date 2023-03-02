@@ -1,33 +1,38 @@
 
 package com.mycompany.controllers;
 
-import com.mycompany.Main;
-import java.net.URL;
+import com.mycompany.navigators.TrainingProgramViewNavigator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 public class RootViewController {
     
     @FXML private BorderPane root;
     
+    @FXML private StackPane trainingProgramPane;
+    @FXML private StackPane paginationPane;
+    
     @FXML
     private void changeSmolovJR() {
-        try {
-            URL fileURL = Main.class.getResource("fxml/SmolovJrView.fxml");
-            this.root.setCenter(new FXMLLoader().load(fileURL));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        TrainingProgramViewNavigator.loadTrainingProgramView(
+                TrainingProgramViewNavigator.SMOLOV_JR
+        );
     }
     
     @FXML
     private void changeWendler531() {
-        try {
-            URL fileURL = Main.class.getResource("fxml/Wendler531View.fxml");
-            this.root.setCenter(new FXMLLoader().load(fileURL));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        TrainingProgramViewNavigator.loadTrainingProgramView(
+                TrainingProgramViewNavigator.WENDLER_531
+        );
+    }
+    
+    public void setTrainingProgram(Node node) {
+        this.trainingProgramPane.getChildren().setAll(node);
+    }
+    
+    public void setPagination(Node node) {
+        this.paginationPane.getChildren().setAll(node);
     }
 }

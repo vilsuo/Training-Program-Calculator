@@ -1,29 +1,32 @@
 
-package com.mycompany.domain;
+package com.mycompany.domain.bases;
 
+import com.mycompany.domain.types.Day;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class WorkoutWeek {
+public class WorkoutWeekBase {
     
-    private List<WorkoutDay> workouts;
+    private List<WorkoutDayBase> workouts;
 
-    public WorkoutWeek() {
+    public WorkoutWeekBase() {
         this.workouts = new ArrayList<>();
     }
     
-    public void addWorkout(String day, WorkoutBase workoutBase) {
+    public void addWorkout(Day day, WorkoutBase workoutBase) {
         // see if workout week already contains workout with given day
-        Optional<WorkoutDay> workoutDayWithGivenDay = this.workouts.stream()
-                .filter(workoutDay -> workoutDay.getDay().equals(day))
+        Optional<WorkoutDayBase> workoutDayWithGivenDay = this.workouts.stream()
+                .filter(workoutDay -> {
+                    return workoutDay.getDay() == day;
+                })
                 .findFirst();
         
         if (workoutDayWithGivenDay.isPresent()) {
             workoutDayWithGivenDay.get().addWorkout(workoutBase);
             
         } else {
-            this.workouts.add(new WorkoutDay(day, workoutBase));
+            this.workouts.add(new WorkoutDayBase(day, workoutBase));
         }
     }
     
@@ -31,7 +34,7 @@ public class WorkoutWeek {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
-        for (WorkoutDay workoutDay : this.workouts) {
+        for (WorkoutDayBase workoutDay : this.workouts) {
             sb.append(workoutDay);
         }
         

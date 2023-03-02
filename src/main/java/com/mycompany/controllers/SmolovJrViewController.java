@@ -1,30 +1,26 @@
 
 package com.mycompany.controllers;
 
+import com.mycompany.domain.types.Exercise;
 import com.mycompany.domain.SmolovJrTrainingProgram;
 import com.mycompany.logic.Utilities;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class SmolovJrViewController implements Initializable {
+public class SmolovJrViewController {
     
     @FXML private Label errorLabel;
     
     @FXML private TextField oneRepMaxTextField;
     
+    @FXML private ComboBox exerciseNameComboBox;
     @FXML private ComboBox incrementComboBox;
     
-    @FXML private ComboBox exerciseNameComboBox;
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
         final ObservableList<String> incrementOptions = 
             FXCollections.observableArrayList(
                 "1.0",
@@ -40,8 +36,8 @@ public class SmolovJrViewController implements Initializable {
         
         final ObservableList<String> exerciseNameOptions = 
             FXCollections.observableArrayList(
-                "Squat",
-                "Bench"
+                    Exercise.BARBELL_SQUAT.label,
+                    Exercise.BENCH_PRESS.label
             );
         this.exerciseNameComboBox.getItems().addAll(exerciseNameOptions);
         this.exerciseNameComboBox.getSelectionModel().selectFirst(); // Squat
@@ -49,34 +45,42 @@ public class SmolovJrViewController implements Initializable {
     
     @FXML
     private void onCalculateButtonPressed() {
-        String input = this.oneRepMaxTextField.getText();
-            
-            if (!isInputValid(input)){
-                // show error
-                return;
-            }
-            
-            // clear the potential error message
-            this.errorLabel.setText("");
-            
-            String exerciseName = this.exerciseNameComboBox.getValue().toString();
-            double oneRepMax = Utilities.getInputDoubleValue(input);
-            double increment = Double.valueOf(
-                    this.incrementComboBox.getValue().toString()
-            );
-            
-            SmolovJrTrainingProgram program = new SmolovJrTrainingProgram(exerciseName, oneRepMax, increment);
-            System.out.println(program);
-    }
-    
-    private boolean isInputValid(String input) {
-        if (!Utilities.validateOneRepMaxInput(input)) {
+        SmolovJrTrainingProgram program = createSmolovJrTrainingProgram();
+        
+        if (program == null){
+            // show error
             this.errorLabel.setText(
                     "Invalid value(s) entered. Enter the values in the range"
-                  + " [0,1000), with the accuracy of atmost three decimals");
-            return false;
+                  + " [0,1000), with the accuracy of atmost three decimals"
+            );
+            return;
         }
-        return true;
+        
+        // clear the potential error message
+        this.errorLabel.setText("");
+        
+        System.out.println(program);
+        
+        // send program to a new window...
+        
+    }
+    
+    private SmolovJrTrainingProgram createSmolovJrTrainingProgram() {
+        String input = this.oneRepMaxTextField.getText();
+        
+        if (!Utilities.validateOneRepMaxInput(input)){
+            return null;
+        }
+        
+        Exercise exerciseName = Exercise.valueOfLabel(
+                this.exerciseNameComboBox.getValue().toString()
+        );
+        double oneRepMax = Utilities.getInputDoubleValue(input);
+        double increment = Double.valueOf(
+                this.incrementComboBox.getValue().toString()
+        );
+        
+        return new SmolovJrTrainingProgram(exerciseName, oneRepMax, increment);
     }
     
 }

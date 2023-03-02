@@ -1,32 +1,40 @@
 
 package com.mycompany.domain;
 
+import com.mycompany.domain.bases.TrainingProgramBase;
+import com.mycompany.domain.bases.WorkoutWeekBase;
+import com.mycompany.domain.bases.WorkoutBase;
+import com.mycompany.domain.bases.ExerciseBase;
+import com.mycompany.domain.bases.SetBase;
+import com.mycompany.domain.types.Day;
+import com.mycompany.domain.types.TrainingProgram;
+import com.mycompany.domain.types.Exercise;
 import com.mycompany.logic.PropertyManager;
 import com.mycompany.logic.Utilities;
 import java.util.Properties;
 
-public class SmolovJrTrainingProgram extends TrainingProgram {
+public class SmolovJrTrainingProgram extends TrainingProgramBase {
     
-    private String exerciseName;
+    private Exercise exerciseName;
     
-    public SmolovJrTrainingProgram(String exerciseName, double oneRepMax, double increment) {
-        super("Smolov Jr");
+    public SmolovJrTrainingProgram(Exercise exerciseName, double oneRepMax, double increment) {
+        super(TrainingProgram.SMOLOV_JR);
         this.exerciseName = exerciseName;
         
-        final String[] days = {"Monday", "Wednesday", "Friday", "Saturday"};
+        final Day[] days = {Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY, Day.SATURDAY};
         
         try {
             Properties props = new PropertyManager().loadProperties();
             double accuracy = Double.valueOf(props.getProperty("weightAccuracy"));
             
             for (int weekNumber = 1; weekNumber <= 3; ++weekNumber) {
-                WorkoutWeek workoutWeek = new WorkoutWeek();
+                WorkoutWeekBase workoutWeek = new WorkoutWeekBase();
                  
                 for (int dayNumber = 1; dayNumber <= 4; ++dayNumber) {
                     WorkoutBase workoutBase = createPrimaryWorkoutBase(
                             weekNumber, dayNumber, oneRepMax, increment, accuracy);
                     
-                    String day = days[dayNumber - 1];
+                    Day day = days[dayNumber - 1];
                     workoutWeek.addWorkout(day, workoutBase);
                 }
                 

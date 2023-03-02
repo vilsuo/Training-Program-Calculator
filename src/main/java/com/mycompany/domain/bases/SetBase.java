@@ -1,5 +1,5 @@
 
-package com.mycompany.domain;
+package com.mycompany.domain.bases;
 
 public class SetBase {
     

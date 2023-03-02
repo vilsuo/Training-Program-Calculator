@@ -14,11 +14,13 @@ public class PropertyManager {
     public PropertyManager() throws FileNotFoundException, IOException {
         File configFile = new File(this.configFileName);
         if (configFile.createNewFile()) {
+            // file does not exist, so create it
             //System.out.println("File " + configFile.getName() + " created");
             
             writeProperty("weightAccuracy", "2.5", "selected weight accuracy");
                 
         } else {
+            // file already exists
             //System.out.println("File " + this.configFileName + " already exists");
         }
     }

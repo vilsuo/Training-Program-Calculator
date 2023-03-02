@@ -23,21 +23,24 @@
             <Label text="One rep max"
                 GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             
-            <TextField fx:id="oneRepMaxTextField" prefWidth="100"
+            <TextField fx:id="oneRepMaxTextField" prefWidth="125"
                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             
             <Label text="Exercise"
                 GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             
-            <ComboBox fx:id="exerciseNameComboBox" prefWidth="100"
+            <ComboBox fx:id="exerciseNameComboBox" prefWidth="125"
                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             
             <Label text="Weekly increment" maxWidth="60" wrapText="true"
                 GridPane.columnIndex="0" GridPane.rowIndex="2"/>
             
-            <ComboBox fx:id="incrementComboBox" prefWidth="100"
+            <ComboBox fx:id="incrementComboBox" prefWidth="125"
                 GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            
+            <Button text="Calculate" prefWidth="125"
+                onAction="#onCalculateButtonPressed"
+                GridPane.columnIndex="1" GridPane.rowIndex="3"/>
         </GridPane>
-        <Button text="Calculate" onAction="#onCalculateButtonPressed"/>
     </children>
 </VBox>

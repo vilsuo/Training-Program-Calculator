@@ -1,6 +1,14 @@
 
 package com.mycompany.domain;
 
+import com.mycompany.domain.bases.TrainingProgramBase;
+import com.mycompany.domain.bases.WorkoutWeekBase;
+import com.mycompany.domain.bases.WorkoutBase;
+import com.mycompany.domain.bases.ExerciseBase;
+import com.mycompany.domain.bases.SetBase;
+import com.mycompany.domain.types.Day;
+import com.mycompany.domain.types.TrainingProgram;
+import com.mycompany.domain.types.Exercise;
 import com.mycompany.logic.PropertyManager;
 import com.mycompany.logic.Utilities;
 import java.util.Properties;
@@ -11,7 +19,7 @@ TODO
 
 */
 
-public class Wendler531TrainingProgram extends TrainingProgram {
+public class Wendler531TrainingProgram extends TrainingProgramBase {
     
     /**
      * training one rep max (TORM) is some percent of the actual one rep max.
@@ -22,10 +30,13 @@ public class Wendler531TrainingProgram extends TrainingProgram {
      * @param squatTORM     squat training one repetition maximum
      */
     public Wendler531TrainingProgram(double ohpTORM, double deadliftTORM, double benchTORM, double squatTORM) {
-        super("Wendler 5/3/1");
+        super(TrainingProgram.WENDLER_531);
         
-        final String[] days = {"Monday", "Wednesday", "Friday", "Saturday"};
-        final String[] exercises = {"overhead press", "deadlift", "bench press", "squat"};
+        final Day[] days = {Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY, Day.SATURDAY};
+        final Exercise[] exercises = {
+            Exercise.OVERHEAD_PRESS, Exercise.DEADLIFT,
+            Exercise.BENCH_PRESS, Exercise.BARBELL_SQUAT
+        };
         double[] tORMs = {ohpTORM, deadliftTORM, benchTORM, squatTORM};
         
         try {
@@ -33,16 +44,16 @@ public class Wendler531TrainingProgram extends TrainingProgram {
             double accuracy = Double.valueOf(props.getProperty("weightAccuracy"));
             
             for (int week = 1; week <= 4; ++week) {
-                WorkoutWeek workoutWeek = new WorkoutWeek();
+                WorkoutWeekBase workoutWeek = new WorkoutWeekBase();
                 
                 for (int dayNumber = 1; dayNumber <= 4; ++dayNumber) {
-                    String exerciseName = exercises[dayNumber - 1];
+                    Exercise exerciseName = exercises[dayNumber - 1];
                     double trainingOneRepMax = tORMs[dayNumber - 1];
                     
                     WorkoutBase workoutBase = createPrimaryWorkoutBase(
                             week, exerciseName, trainingOneRepMax, accuracy);
                     
-                    String day = days[dayNumber - 1];
+                    Day day = days[dayNumber - 1];
                     workoutWeek.addWorkout(day, workoutBase);
                 }
                 
@@ -73,7 +84,7 @@ public class Wendler531TrainingProgram extends TrainingProgram {
      * 
      * @param accuracy          working weights will be rounded to the closest multiple of this value
      */
-    private WorkoutBase createPrimaryWorkoutBase(int week, String exerciseName, double trainingOneRepMax, double accuracy) {
+    private WorkoutBase createPrimaryWorkoutBase(int week, Exercise exerciseName, double trainingOneRepMax, double accuracy) {
         ExerciseBase exercise = new ExerciseBase(exerciseName);
         
         for (int setNumber = 1; setNumber <= 3; ++setNumber) {

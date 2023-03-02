@@ -1,25 +1,26 @@
 
-package com.mycompany.domain;
+package com.mycompany.domain.bases;
 
+import com.mycompany.domain.types.TrainingProgram;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TrainingProgram implements Iterable {
+public class TrainingProgramBase implements Iterable {
     
-    private String programName;
-    private List<WorkoutWeek> workouts;
+    private TrainingProgram trainingProgramName;
+    private List<WorkoutWeekBase> workouts;
     
-    public TrainingProgram(String programName) {
+    public TrainingProgramBase(TrainingProgram programName) {
         this.workouts = new ArrayList<>();
-        this.programName = programName;
+        this.trainingProgramName = programName;
     }
     
-    private WorkoutWeek getWorkoutWeek(int index) {
+    public WorkoutWeekBase getWorkoutWeek(int index) {
         return this.workouts.get(index);
     }
     
-    public void addWorkoutWeek(WorkoutWeek workoutWeek) {
+    public void addWorkoutWeek(WorkoutWeekBase workoutWeek) {
         this.workouts.add(workoutWeek);
     }
     
@@ -34,7 +35,7 @@ public class TrainingProgram implements Iterable {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(this.programName);
+        StringBuilder sb = new StringBuilder(this.trainingProgramName.label);
         sb.append(" program:\n");
         
         for (int i = 0; i < this.workouts.size(); ++i) {

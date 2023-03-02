@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.controllers;
 
 import com.mycompany.domain.Wendler531TrainingProgram;
@@ -14,7 +10,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-
 public class Wendler531ViewController {
     
     @FXML private TextField ohpORMTextField;
@@ -22,12 +17,14 @@ public class Wendler531ViewController {
     @FXML private TextField squatORMTextField;
     @FXML private TextField deadliftORMTextField;
     
+    /*
     @FXML private Label tORMLabel;
     
     @FXML private Label ohpTORMTextField;
     @FXML private Label benchTORMField;
     @FXML private Label squatTORMTextField;
     @FXML private Label deadliftTORMTextField;
+    */
     
     @FXML private Label errorLabel;
     
@@ -84,9 +81,28 @@ public class Wendler531ViewController {
     
     @FXML
     private void onCalculateButtonPressed() {
-        // clear previous training max text
-        clearTORMLabels();
+        Wendler531TrainingProgram program = createWendler531TrainingProgram();
         
+        if (program == null) {
+            // show error
+            this.errorLabel.setText(
+                    "Invalid value(s) entered. Enter the values in the range"
+                  + " [0,1000), with the accuracy of atmost three decimals"
+            );
+            return;
+        }
+        
+        // clear the potential error message
+        this.errorLabel.setText("");
+        
+        // clear previous training max text
+        //clearTORMLabels();
+        
+        // send program to a new window...
+        System.out.println(program);
+    }
+    
+    private Wendler531TrainingProgram createWendler531TrainingProgram() {
         // check all one rep max inputs
         String ohpInput = this.ohpORMTextField.getText();
         String benchInput = this.benchORMTextField.getText();
@@ -97,10 +113,8 @@ public class Wendler531ViewController {
             ohpInput, benchInput, squatInput, deadliftInput
         };
         
-        // proceed only if all inputs are valid
         if(!areInputsValid(inputs)) {
-            // show error
-            return;
+            return null;
         }
         
         // calculate training one rep maxes
@@ -125,14 +139,13 @@ public class Wendler531ViewController {
         );
         
         // update view to show training one rep maxes
-        showTORMLabels(ohpTORM, benchTORM, squatTORM, deadliftTORM);
+        //showTORMLabels(ohpTORM, benchTORM, squatTORM, deadliftTORM);
         
         // create the training program
-        Wendler531TrainingProgram program = new Wendler531TrainingProgram(
+        return new Wendler531TrainingProgram(
                 ohpTORM, deadliftTORM, benchTORM, squatTORM
         );
         
-        System.out.println(program);
     }
     
     private double calculateTORM(double oneRepMax, double increment) {
@@ -145,15 +158,13 @@ public class Wendler531ViewController {
     private boolean areInputsValid(String[] inputs) {
         for (int i = 0; i < inputs.length; ++i) {
             if (!Utilities.validateOneRepMaxInput(inputs[i])) {
-                this.errorLabel.setText(
-                        "Invalid value(s) entered. Enter the values in the range"
-                      + " [0,1000), with the accuracy of atmost three decimals");
                 return false;
             }
         }
         return true;
     }
     
+    /*
     private void clearTORMLabels() {
         this.tORMLabel.setText("");
         this.ohpTORMTextField.setText("");
@@ -174,6 +185,6 @@ public class Wendler531ViewController {
         this.squatTORMTextField.setText(String.format("%.3f", squatTORM));
         this.deadliftTORMTextField.setText(String.format("%.3f", deadliftTORM));
     }
-    
+    */
 }
 

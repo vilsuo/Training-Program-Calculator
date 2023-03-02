@@ -1,20 +1,21 @@
 
-package com.mycompany.domain;
+package com.mycompany.domain.bases;
 
+import com.mycompany.domain.types.Exercise;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseBase {
     
-    private String exerciseName;
+    private Exercise exerciseName;
     private List<SetBase> sets;
 
-    public ExerciseBase(String exerciseName) {
+    public ExerciseBase(Exercise exerciseName) {
         this.exerciseName = exerciseName;
         this.sets = new ArrayList<>();
     }
     
-    public ExerciseBase(String exerciseName, SetBase set) {
+    public ExerciseBase(Exercise exerciseName, SetBase set) {
         this(exerciseName);
         addSet(set);
     }
@@ -25,7 +26,7 @@ public class ExerciseBase {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(this.exerciseName);
+        StringBuilder sb = new StringBuilder(this.exerciseName.label);
         
         for (SetBase setBase : this.sets) {
             sb.append("\n");

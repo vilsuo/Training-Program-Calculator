@@ -48,7 +48,7 @@
             <TextField fx:id="deadliftORMTextField" prefWidth="100"
                 GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             
-            
+            <!--
             <Label fx:id="tORMLabel"
                 GridPane.columnIndex="2" GridPane.rowIndex="0"/>
             
@@ -63,6 +63,7 @@
             
             <Label fx:id="deadliftTORMTextField"
                 GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+            -->
         </GridPane>
         
         <HBox alignment="CENTER" spacing="20.0">

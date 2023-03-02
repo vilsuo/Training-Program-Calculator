@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
-
 public class MenuViewController implements Initializable {
     
     @FXML private ToggleGroup weightAccuracyToggleGroup;

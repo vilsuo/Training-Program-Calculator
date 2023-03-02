@@ -1,5 +1,5 @@
 
-package com.mycompany.domain;
+package com.mycompany.domain.bases;
 
 import java.util.ArrayList;
 import java.util.List;

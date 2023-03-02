@@ -1,20 +1,21 @@
 
-package com.mycompany.domain;
+package com.mycompany.domain.bases;
 
+import com.mycompany.domain.types.Day;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkoutDay {
+public class WorkoutDayBase {
     
-    private String day;
+    private Day day;
     private List<WorkoutBase> workouts;
     
-    public WorkoutDay(String day) {
+    public WorkoutDayBase(Day day) {
         this.day = day;
         this.workouts = new ArrayList<>();
     }
 
-    public WorkoutDay(String day, WorkoutBase workout) {
+    public WorkoutDayBase(Day day, WorkoutBase workout) {
         this(day);
         addWorkout(workout);
     }
@@ -23,13 +24,13 @@ public class WorkoutDay {
         this.workouts.add(workout);
     }
 
-    public String getDay() {
+    public Day getDay() {
         return this.day;
     }
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(this.day);
+        StringBuilder sb = new StringBuilder(this.day.label);
         sb.append(":\n");
         for (int i = 0; i < this.workouts.size(); ++i) {
             if (this.workouts.size() > 1) {

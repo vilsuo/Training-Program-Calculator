@@ -1,43 +1,28 @@
 
 package com.mycompany.controllers;
 
-import com.mycompany.domain.TrainingProgram;
+import com.mycompany.domain.bases.TrainingProgramBase;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 public class PaginationViewController {
     
     @FXML private Pagination pagination;
     
-    private TrainingProgram trainingProgram;
+    private TrainingProgramBase trainingProgram;
     
-    public PaginationViewController() {
-        this.trainingProgram = new TrainingProgram("No Training Program Entered");
-    }
-    
-    public PaginationViewController(TrainingProgram trainingProgram) {
+    public void setTrainingProgram(TrainingProgramBase trainingProgram) {
         this.trainingProgram = trainingProgram;
         
-    }
-    /*
-    public void initialize() {
-        this.pagination.setPageCount(this.trainingProgram.weeks());
-        this.trainingProgram.weeks();
-        this.pagination.setPageFactory(new Callback<Integer, Node>() {
-            
-            @Override
-            public Node call(Integer pageIndex) {
-                return createPage(pageIndex);
-            }
-        });
+        this.pagination.setPageCount(this.trainingProgram.getNumberOfWeeks());
+        
+        this.pagination.setPageFactory(this::createPage);
     }
     
     private VBox createPage(int index) {
-        if (index >= this.trainingProgram.weeks()) {
+        if (index >= this.trainingProgram.getNumberOfWeeks()) {
             return null;
         }
         
@@ -49,5 +34,5 @@ public class PaginationViewController {
         page.getChildren().add(trainingWeek);
         return page;
     }
-    */
+    
 }
